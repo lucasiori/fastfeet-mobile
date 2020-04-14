@@ -1,7 +1,6 @@
 import React from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
-import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import './config/ReactotronConfig';
@@ -14,7 +13,6 @@ export default function Index() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <NavigationContainer>
-          <StatusBar barStyle="light-content" backgroundColor="#7d40e7" />
           <App />
         </NavigationContainer>
       </PersistGate>

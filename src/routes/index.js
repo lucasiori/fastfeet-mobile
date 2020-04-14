@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -10,16 +11,22 @@ const { Navigator, Screen } = createStackNavigator();
 
 export default function Routes({ signed }) {
   return (
-    <Navigator
-      screenOptions={{
-        cardStyle: { backgroundColor: '#7d40e7' },
-        headerShown: false,
-      }}
-    >
-      {signed && <Screen name="Dashboard" component={Dashboard} />}
+    <>
+      <StatusBar
+        barStyle={signed ? 'dark-content' : 'light-content'}
+        backgroundColor={signed ? '#fff' : '#7d40e7'}
+      />
+      <Navigator
+        screenOptions={{
+          cardStyle: { backgroundColor: '#7d40e7' },
+          headerShown: false,
+        }}
+      >
+        {signed && <Screen name="Dashboard" component={Dashboard} />}
 
-      {!signed && <Screen name="SignIn" component={SignIn} />}
-    </Navigator>
+        {!signed && <Screen name="SignIn" component={SignIn} />}
+      </Navigator>
+    </>
   );
 }
 

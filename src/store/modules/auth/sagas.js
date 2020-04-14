@@ -1,11 +1,11 @@
 import { Alert } from 'react-native';
-import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { takeLatest, call, put, all } from 'redux-saga/effects'; // eslint-disable-line
 
 import { signInSuccess, signFailure } from './actions';
 
-import api from '~/services/api';
+// import api from '~/services/api';
 
-export function* signIn({ payload }) {
+export function* signIn({ payload }) { // eslint-disable-line
   try {
     // const { id } = payload;
 
@@ -15,11 +15,8 @@ export function* signIn({ payload }) {
 
     const user = {
       name: 'Lucas Fernando Iori',
-      address: 'rua Recife',
-      address_number: '10',
-      city: 'Itajobi',
-      state: 'São Paulo',
-      zip_code: '15840-000',
+      email: 'lucasferiori@gmail.com',
+      created_at: '2020-04-11T19:51:48.528Z',
     };
 
     yield put(signInSuccess(user));

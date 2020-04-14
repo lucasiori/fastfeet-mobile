@@ -1,16 +1,17 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Dashboard from '~/pages/Dashboard';
+import Profile from '~/pages/Profile';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-// function TabBarIcon({ color, name }) {
-//   return <Icon name={name} size={20} color={color} />;
-// }
+function TabBarIcon({ color, name }) {
+  return <Icon name={name} size={20} color={color} />;
+}
 
 export default function DashboardRoutes() {
   return (
@@ -20,9 +21,11 @@ export default function DashboardRoutes() {
         keyboardHidesTabBar: true,
         activeTintColor: '#7d40e7',
         inactiveTintColor: '#999',
+        labelStyle: {
+          fontSize: 14,
+        },
         style: {
           backgroundColor: '#fff',
-          borderTopColor: 'rgba(0, 0, 0, 0.2)',
         },
       }}
     >
@@ -31,13 +34,25 @@ export default function DashboardRoutes() {
         component={Dashboard}
         options={{
           tabBarLabel: 'Entregas',
+          tabBarIcon: (props) => <TabBarIcon {...props} name="menu" />,
+        }}
+      />
+
+      <Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: 'Meu Perfil',
+          tabBarIcon: (props) => (
+            <TabBarIcon {...props} name="account-circle" />
+          ),
         }}
       />
     </Navigator>
   );
 }
 
-// TabBarIcon.propTypes = {
-//   color: PropTypes.string.isRequired,
-//   name: PropTypes.string.isRequired,
-// };
+TabBarIcon.propTypes = {
+  color: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};

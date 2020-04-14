@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Container, ButtonText } from './styles';
 
-export default function Button({ background, text, onPress }) {
+export default function Button({ background, text, onPress, ...rest }) {
   return (
-    <Container background={background} onPress={onPress}>
+    <Container {...rest} background={background} onPress={onPress}>
       <ButtonText>{text}</ButtonText>
     </Container>
   );
