@@ -36,10 +36,16 @@ export default function DeliveryBox({ index, onDetails }) {
   };
 
   return (
-    <Container style={{ elevation: 1.5, shadowRadius: 4 }}>
+    <Container
+      style={{
+        elevation: 1.5,
+        shadowRadius: 4,
+        shadowColor: 'rgba(0, 0, 0, 0.1)',
+      }}
+    >
       <Content>
         <ContentHeader>
-          <Icon name="local-shipping" color="#7d40e7" size={22} />
+          <Icon name="local-shipping" color="#7d40e7" size={24} />
           <Title>Encomenda {index.toString().padStart(2, '0')}</Title>
         </ContentHeader>
 

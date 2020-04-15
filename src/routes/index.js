@@ -12,10 +12,8 @@ const { Navigator, Screen } = createStackNavigator();
 export default function Routes({ signed }) {
   return (
     <>
-      <StatusBar
-        barStyle={signed ? 'dark-content' : 'light-content'}
-        backgroundColor={signed ? '#fff' : '#7d40e7'}
-      />
+      <StatusBar barStyle="light-content" backgroundColor="#7d40e7" />
+
       <Navigator
         screenOptions={{
           cardStyle: { backgroundColor: '#7d40e7' },

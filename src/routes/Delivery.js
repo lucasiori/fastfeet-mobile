@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Dashboard from '~/pages/Dashboard';
 import DeliveryDetails from '~/pages/DeliveryDetails';
 import NewProblem from '~/pages/NewProblem';
-import ProblemDetails from '~/pages/ProblemDetails';
+import DeliveryProblems from '~/pages/DeliveryProblems';
 import FinishDelivery from '~/pages/FinishDelivery';
 
 const { Navigator, Screen } = createStackNavigator();
@@ -15,6 +15,7 @@ export default function NewRoutes() {
   return (
     <Navigator
       screenOptions={{
+        headerTransparent: true,
         headerTintColor: '#fff',
         headerTitleAlign: 'center',
         headerLeftContainerStyle: { marginLeft: 20 },
@@ -53,10 +54,10 @@ export default function NewRoutes() {
       />
 
       <Screen
-        name="ProblemDetails"
-        component={ProblemDetails}
+        name="DeliveryProblems"
+        component={DeliveryProblems}
         options={({ navigation }) => ({
-          title: 'Visualizar problema',
+          title: 'Visualizar problemas',
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Icon name="chevron-left" size={28} color="#fff" />
