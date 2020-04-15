@@ -26,7 +26,7 @@ export default function Profile() {
   return (
     <Wrapper>
       <Container>
-        <Avatar />
+        <Avatar size="big" />
 
         <Group>
           <Label>Nome completo</Label>

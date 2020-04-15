@@ -4,13 +4,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Dashboard from '~/pages/Dashboard';
+import Delivery from './Delivery';
+
 import Profile from '~/pages/Profile';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 function TabBarIcon({ color, name }) {
-  return <Icon name={name} size={20} color={color} />;
+  return <Icon name={name} size={26} color={color} />;
 }
 
 export default function DashboardRoutes() {
@@ -22,16 +23,19 @@ export default function DashboardRoutes() {
         activeTintColor: '#7d40e7',
         inactiveTintColor: '#999',
         labelStyle: {
-          fontSize: 14,
+          fontSize: 16,
         },
         style: {
+          height: 60,
           backgroundColor: '#fff',
+          alignItems: 'center',
+          paddingBottom: 5,
         },
       }}
     >
       <Screen
-        name="Dashboard"
-        component={Dashboard}
+        name="Delivery"
+        component={Delivery}
         options={{
           tabBarLabel: 'Entregas',
           tabBarIcon: (props) => <TabBarIcon {...props} name="menu" />,

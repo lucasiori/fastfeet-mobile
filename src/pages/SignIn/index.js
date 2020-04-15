@@ -11,9 +11,9 @@ import { signInRequest } from '~/store/modules/auth/actions';
 import { Wrapper, Container, FormInput } from './styles';
 
 export default function SignIn() {
-  const [id, setId] = useState('');
-
   const dispatch = useDispatch();
+
+  const [id, setId] = useState('');
 
   function handleSubmit() {
     if (!id) {

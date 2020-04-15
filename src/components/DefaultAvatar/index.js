@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import generateRandomColor from '~/utils/generateRandomColor';
 
 import { Container, AvatarText } from './styles';
 
-export default function DefaultAvatar(props) {
+export default function DefaultAvatar({ size, ...rest }) {
   const name = useSelector((state) => state.user.profile.name);
 
   const [avatarText, setAvatarText] = useState('');
@@ -26,10 +27,22 @@ export default function DefaultAvatar(props) {
   }, [name]);
 
   return (
-    <Container {...props} background={colors.background || '#a28fd0'}>
-      <AvatarText color={colors.labelColor || '#f4effc'}>
+    <Container
+      {...rest}
+      background={colors.background || '#a28fd0'}
+      size={size}
+    >
+      <AvatarText color={colors.labelColor || '#f4effc'} size={size}>
         {avatarText}
       </AvatarText>
     </Container>
   );
 }
+
+DefaultAvatar.propTypes = {
+  size: PropTypes.string,
+};
+
+DefaultAvatar.defaultProps = {
+  size: 'small',
+};

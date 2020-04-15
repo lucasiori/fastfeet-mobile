@@ -16,7 +16,7 @@ export const Container = styled.View`
 `;
 
 export const Avatar = styled(DefaultAvatar)`
-  margin-bottom: 45px;
+  margin: 0 auto 45px;
 `;
 
 export const Group = styled.View`
