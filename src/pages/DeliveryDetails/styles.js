@@ -6,7 +6,7 @@ export const Container = styled.ScrollView.attrs({
 })`
   width: 90%;
   max-width: 335px;
-  margin: 80px auto 0;
+  margin: 0 auto;
 `;
 
 export const Box = styled.View`

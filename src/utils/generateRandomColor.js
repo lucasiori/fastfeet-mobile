@@ -10,9 +10,5 @@ const colors = [
 ];
 
 export default () => {
-  const randomColor = randomItem(colors);
-
-  console.tron.log(randomColor);
-
-  return randomColor;
+  return randomItem(colors);
 };

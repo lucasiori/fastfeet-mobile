@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 export const Container = styled.SafeAreaView`
   width: 90%;
   max-width: 335px;
-  margin: 80px auto 20px;
+  margin: 0 auto 20px;
 `;
 
 export const Title = styled.Text`

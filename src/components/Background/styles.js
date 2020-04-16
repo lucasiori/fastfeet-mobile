@@ -6,4 +6,5 @@ export const Wrapper = styled(LinearGradient).attrs({
   locations: [0.35, 0.35],
 })`
   flex: 1;
+  padding-top: 80px;
 `;

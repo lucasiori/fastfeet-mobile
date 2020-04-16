@@ -93,7 +93,10 @@ export default function DeliveryDetails({ navigation }) {
             <ButtonText>Visualizar Problemas</ButtonText>
           </Button>
 
-          <Button style={styles.boxShadow}>
+          <Button
+            style={styles.boxShadow}
+            onPress={() => navigation.navigate('FinishDelivery')}
+          >
             <Icon name="alarm-on" color="#7d40e7" size={24} />
             <ButtonText>Confirmar Entrega</ButtonText>
           </Button>
