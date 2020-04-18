@@ -52,7 +52,7 @@ export const ViewGroup = styled.View`
 export const ButtonGroup = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -61,6 +61,9 @@ export const Button = styled.TouchableOpacity`
   background: #f8f9fd;
   border-radius: 4px;
   padding: 15px 20px;
+  margin: 0 0.15%;
+
+  opacity: ${(props) => (props.disabled ? 0.6 : 1)};
 `;
 
 export const ButtonText = styled.Text`

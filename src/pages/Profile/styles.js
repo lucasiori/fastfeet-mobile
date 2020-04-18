@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 import Button from '~/components/Button';
-import DefaultAvatar from '~/components/DefaultAvatar';
+import Avatar from '~/components/Avatar';
 
 export const Wrapper = styled.SafeAreaView`
   flex: 1;
@@ -15,8 +15,8 @@ export const Container = styled.View`
   max-width: 305px;
 `;
 
-export const Avatar = styled(DefaultAvatar)`
-  margin: 0 auto 45px;
+export const ProfileAvatar = styled(Avatar)`
+  margin-bottom: 45px;
 `;
 
 export const Group = styled.View`

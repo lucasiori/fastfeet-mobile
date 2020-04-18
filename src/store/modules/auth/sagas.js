@@ -1,29 +1,25 @@
 import { Alert } from 'react-native';
-import { takeLatest, call, put, all } from 'redux-saga/effects'; // eslint-disable-line
+import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import { signInSuccess, signFailure } from './actions';
 
-// import api from '~/services/api';
+import api from '~/services/api';
 
-export function* signIn({ payload }) { // eslint-disable-line
+export function* signIn({ payload }) {
   try {
-    // const { id } = payload;
+    const { id } = payload;
 
-    // const response = yield call(api.post, 'sessions/mobile', { id });
+    const response = yield call(api.post, 'sessions/mobile', { id });
 
-    // const { user } = response.data;
+    const { token, user } = response.data;
 
-    const user = {
-      name: 'Lucas Fernando Iori',
-      email: 'lucasferiori@gmail.com',
-      created_at: '2020-04-11T19:51:48.528Z',
-    };
+    api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    yield put(signInSuccess(user));
+    yield put(signInSuccess(token, user));
   } catch (err) {
     Alert.alert(
       'Falha na autenticação',
-      err.response
+      err.response && err.response.data
         ? err.response.data.error
         : 'Houve um erro no login, verifique seus dados'
     );
@@ -31,4 +27,17 @@ export function* signIn({ payload }) { // eslint-disable-line
   }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+export function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+
+  if (token) {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
+export default all([
+  takeLatest('persist/REHYDRATE', setToken),
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+]);

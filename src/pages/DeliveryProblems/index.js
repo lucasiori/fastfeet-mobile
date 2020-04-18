@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { parseISO, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+
+import api from '~/services/api';
 
 import Background from '~/components/Background';
 
@@ -15,30 +21,58 @@ import {
 const styles = StyleSheet.create({
   boxShadow: {
     elevation: 1.5,
-    shadowRadius: 4,
-    shadowColor: 'rgba(0, 0, 0, 0.1)',
   },
 });
 
-export default function DeliveryProblems() {
-  // function handleShowDetails(description) {
-  //   Alert.alert('Descrição do problema', description)
-  // }
+export default function DeliveryProblems({ route }) {
+  const { delivery_id } = route.params;
+
+  const [problems, setProblems] = useState([]);
+
+  useFocusEffect(
+    useCallback(() => {
+      async function loadProblems() {
+        try {
+          const response = await api.get(`deliveries/${delivery_id}/problems`);
+
+          setProblems(response.data);
+        } catch (err) {
+          Alert.alert(
+            '',
+            err.response && err.response.data
+              ? err.response.data.error
+              : 'Erro ao buscar problemas nas entregas'
+          );
+        }
+      }
+
+      loadProblems();
+    }, [delivery_id])
+  );
+
+  function handleShowDetails(description) {
+    Alert.alert('Descrição do problema', description);
+  }
 
   return (
     <Background>
       <Container>
-        <Title>Encomenda 01</Title>
+        <Title>Encomenda {delivery_id.toString().padStart(2, '0')}</Title>
 
         <ProblemsList
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-          keyExtractor={(item) => String(item)}
-          renderItem={() => (
-            <ProblemBox style={styles.boxShadow} onPress={() => {}}>
-              <ProblemDescription>
-                Destinatário Ausente Destinatário Ausente
-              </ProblemDescription>
-              <ProblemDate>14/01/2020</ProblemDate>
+          data={problems}
+          keyExtractor={(problem) => String(problem.id)}
+          renderItem={({ item }) => (
+            <ProblemBox
+              style={styles.boxShadow}
+              onPress={() => handleShowDetails(item.description)}
+            >
+              <ProblemDescription>{item.description}</ProblemDescription>
+              <ProblemDate>
+                {format(parseISO(item.created_at), 'dd/MM/yyyy', {
+                  locale: pt,
+                })}
+              </ProblemDate>
             </ProblemBox>
           )}
         />
@@ -46,3 +80,9 @@ export default function DeliveryProblems() {
     </Background>
   );
 }
+
+DeliveryProblems.propTypes = {
+  route: PropTypes.shape({
+    params: PropTypes.shape.isRequired,
+  }).isRequired,
+};

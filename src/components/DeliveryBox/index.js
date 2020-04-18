@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import Steps from 'react-native-steps';
+import { parseISO, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import Steps from '../Steps';
 
 import {
   Container,
@@ -15,58 +18,37 @@ import {
   DetailsText,
 } from './styles';
 
-export default function DeliveryBox({ index, onDetails }) {
-  const stepsConfigs = {
-    stepIndicatorSize: 15,
-    currentStepIndicatorSize: 15,
-    stepStrokeWidth: 2,
-    currentStepStrokeWidth: 2,
-    separatorStrokeUnfinishedWidth: 2,
-    separatorStrokeFinishedWidth: 2,
-    stepStrokeCurrentColor: '#7d40e7',
-    separatorFinishedColor: '#7d40e7',
-    separatorUnFinishedColor: '#7d40e7',
-    stepStrokeUnFinishedColor: '#7d40e7',
-    stepStrokeFinishedColor: '#7d40e7',
-    stepIndicatorFinishedColor: '#7d40e7',
-    stepIndicatorUnFinishedColor: '#fff',
-    labelColor: '#999',
-    currentStepLabelColor: '#999',
-    labelSize: 11,
-  };
+const styles = StyleSheet.create({
+  boxShadow: {
+    elevation: 1.5,
+  },
+});
 
+export default function DeliveryBox({ delivery, onDetails }) {
   return (
-    <Container
-      style={{
-        elevation: 1.5,
-        shadowRadius: 4,
-        shadowColor: 'rgba(0, 0, 0, 0.1)',
-      }}
-    >
+    <Container style={styles.boxShadow}>
       <Content>
         <ContentHeader>
           <Icon name="local-shipping" color="#7d40e7" size={24} />
-          <Title>Encomenda {index.toString().padStart(2, '0')}</Title>
+          <Title>Encomenda {delivery.id.toString().padStart(2, '0')}</Title>
         </ContentHeader>
 
-        <Steps
-          configs={stepsConfigs}
-          current={1}
-          count={3}
-          renderStepIndicator={() => {}}
-          labels={['Aguardando retirada', 'Retirada', 'Entregue']}
-        />
+        <Steps deliveryStatus={delivery.status} />
       </Content>
 
       <Footer>
         <View>
           <Label>Data</Label>
-          <ValueText>14/01/2020</ValueText>
+          <ValueText>
+            {format(parseISO(delivery.created_at), 'dd/MM/yyyy', {
+              locale: pt,
+            })}
+          </ValueText>
         </View>
 
         <View>
           <Label>Cidade</Label>
-          <ValueText>Diadema</ValueText>
+          <ValueText>{delivery.recipient.city}</ValueText>
         </View>
 
         <View>
@@ -80,6 +62,17 @@ export default function DeliveryBox({ index, onDetails }) {
 }
 
 DeliveryBox.propTypes = {
-  index: PropTypes.number.isRequired,
+  delivery: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    recipient: PropTypes.shape({
+      city: PropTypes.string.isRequired,
+    }).isRequired,
+    end_date: PropTypes.string,
+    start_date: PropTypes.string,
+    created_at: PropTypes.string.isRequired,
+    status: PropTypes.shape({
+      description: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
   onDetails: PropTypes.func.isRequired,
 };

@@ -17,10 +17,7 @@ export default function SignIn() {
 
   function handleSubmit() {
     if (!id) {
-      Alert.alert(
-        'Falha na autenticação',
-        'Por favor informe o ID de cadastro'
-      );
+      Alert.alert('', 'Por favor informe o ID de cadastro');
     }
 
     dispatch(signInRequest(id));

@@ -8,7 +8,7 @@ import { signOut } from '~/store/modules/auth/actions';
 import {
   Wrapper,
   Container,
-  Avatar,
+  ProfileAvatar,
   Group,
   Label,
   ValueText,
@@ -26,7 +26,7 @@ export default function Profile() {
   return (
     <Wrapper>
       <Container>
-        <Avatar size="big" />
+        <ProfileAvatar size="big" />
 
         <Group>
           <Label>Nome completo</Label>

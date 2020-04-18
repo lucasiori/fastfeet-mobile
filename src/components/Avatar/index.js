@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 
 import generateRandomColor from '~/utils/generateRandomColor';
 
-import { Container, AvatarText } from './styles';
+import { Container, AvatarImage, DefaultAvatar, AvatarText } from './styles';
 
-export default function DefaultAvatar({ size, ...rest }) {
-  const name = useSelector((state) => state.user.profile.name);
+export default function Avatar({ size, ...rest }) {
+  const { name, avatar } = useSelector((state) => state.user.profile);
 
   const [avatarText, setAvatarText] = useState('');
   const [colors, setColors] = useState({});
@@ -27,22 +27,28 @@ export default function DefaultAvatar({ size, ...rest }) {
   }, [name]);
 
   return (
-    <Container
-      {...rest}
-      background={colors.background || '#a28fd0'}
-      size={size}
-    >
-      <AvatarText color={colors.labelColor || '#f4effc'} size={size}>
-        {avatarText}
-      </AvatarText>
+    <Container {...rest}>
+      {avatar && <AvatarImage source={{ uri: avatar.url }} size={size} />}
+
+      {!avatar && (
+        <DefaultAvatar
+          {...rest}
+          background={colors.background || '#a28fd0'}
+          size={size}
+        >
+          <AvatarText color={colors.labelColor || '#f4effc'} size={size}>
+            {avatarText}
+          </AvatarText>
+        </DefaultAvatar>
+      )}
     </Container>
   );
 }
 
-DefaultAvatar.propTypes = {
+Avatar.propTypes = {
   size: PropTypes.string,
 };
 
-DefaultAvatar.defaultProps = {
+Avatar.defaultProps = {
   size: 'small',
 };
